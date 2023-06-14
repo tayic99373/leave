@@ -8,7 +8,7 @@ function MUTEX-CHECK {
     $CreatedNew = $false
     $script:SingleInstanceEvent = New-Object Threading.EventWaitHandle $true, ([Threading.EventResetMode]::ManualReset), "Global\$AppID", ([ref] $CreatedNew)
     if( -not $CreatedNew ) {
-        throw "An instance of this script is already running."
+        #throw "An instance of this script is already running."
     } else {
         Invoke-ANTITOTAL
     }
